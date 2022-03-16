@@ -1,0 +1,9 @@
+{
+    "dependencies": {
+        "express": "latest",
+        "json": "latest"
+    },
+    "scripts": {
+        "start": "node src/app.js"
+    }
+}

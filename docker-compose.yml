@@ -1,0 +1,23 @@
+services:
+  generator:
+    build:
+      context: ./data_generator
+      dockerfile: dockerfile
+    container_name: "Data_Generator"
+    volumes:
+      - cern_data:/data 
+
+  node_api:
+    build:
+      context: ./node_server
+      dockerfile: dockerfile
+    container_name: "Node_Server"
+    environment:
+      - PORT=4000
+    volumes:
+      - cern_data:/data 
+    ports:
+      - 4000:4000
+
+volumes:
+  cern_data: {}

@@ -1,0 +1,14 @@
+FROM node:alpine
+
+# Copy package.json
+RUN mkdir /app
+COPY ./package*.json /app
+
+# Install packages for Node
+WORKDIR /app
+RUN npm i
+
+# Move files to their correct locations.
+COPY ./src/ /app/src/
+
+CMD [ "npm", "start" ]

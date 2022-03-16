@@ -1,0 +1,7 @@
+FROM python:alpine3.15
+
+# Move files to  their correct locations.
+COPY ./src/ /app
+COPY ./scripts/ /scripts
+
+CMD [ "sh", "/scripts/run.sh"]
