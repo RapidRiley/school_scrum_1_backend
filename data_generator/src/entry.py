@@ -49,7 +49,7 @@ class Entry:
 			f"{self.end}, "
 			f"{self.energy}, "
 			f"{self.collision}, "
-			f"{self.cyclus},  "
+			f"{self.cyclus}, "
 			f"{self.measurement}"
 		)
 		for particle in self.particles:
@@ -68,4 +68,4 @@ class Entry:
 			f"{Measurement.get_headers()}, "
 			f"{Particle.get_headers(5)}"
 			"\n"
-		)
+		)	
