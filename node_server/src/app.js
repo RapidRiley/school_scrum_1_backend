@@ -1,7 +1,17 @@
 // Author: Riley Warps
 
-const express = require("express")
-const fs = require("fs")
+const express = require('express')
+const fs = require('fs')
+const { ServerResponse } = require('http')
+
+// SSL Configuration
+const https = require('https')
+const private_key = fs.readFileSync('cert/school_scrum_1_back_end.key', 'utf8')
+const certificate = fs.readFileSync('cert/school_scrum_1_back_end.crt', 'utf8')
+const credentials = {
+	key:  private_key,
+	cert: certificate
+}
 
 const PORT = process.env.PORT
 const data_dir = "/data/"
@@ -58,6 +68,7 @@ app.get("/get-manifest", (req, res) => {
     })
 })
 
-app.listen(PORT, () => {
-    console.log("Listening on port " + PORT)
-})
+
+https_server = https.createServer(credentials, app)
+console.log("Starting server on port " + toString(PORT))
+https_server.listen(PORT);
