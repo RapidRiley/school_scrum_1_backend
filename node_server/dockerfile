@@ -1,8 +1,15 @@
 FROM node:alpine
 
+# Install dependencies
+RUN apk add ca-certificates
+
 # Copy package.json
 RUN mkdir /app
 COPY ./package*.json /app
+
+# Install root certificate
+COPY ./cert/ca.pem /usr/local.share/ca-certificates/ca.crt
+RUN update-ca-certificates
 
 # Install packages for Node
 WORKDIR /app
@@ -10,5 +17,8 @@ RUN npm i
 
 # Move files to their correct locations.
 COPY ./src/ /app/src/
+
+# Copy certificate & key
+COPY ./cert/ /app/cert/
 
 CMD [ "npm", "start" ]
