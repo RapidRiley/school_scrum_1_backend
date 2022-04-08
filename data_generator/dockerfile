@@ -1,5 +1,9 @@
 FROM python:alpine3.15
 
+# Set up folder
+ENV DATA_DIR=/data
+RUN mkdir /data
+
 # Move files to  their correct locations.
 COPY ./src/ /app
 COPY ./scripts/ /scripts
