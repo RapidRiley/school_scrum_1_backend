@@ -10,11 +10,15 @@ from cyclus import Cyclus
 from particle import Particle
 
 class Entry:
+	last_run_id = Run_ID()
+	last_run_collision = ""
+	collision_count = 0;
 	def __init__(self): 
 		random.seed()
+
 		# Set id
-		self.run_id = Run_ID()
- 
+		Entry.last_run_id = self.run_id = self.get_run_id()
+
 		# Set start timestamp
 		self.start = Start(datetime.now())
  
@@ -32,16 +36,28 @@ class Entry:
 			)
 		)
 
-
 		# Generate Collision data
 		self.collision = Collision();
+		Entry.last_run_collision = self.collision.collision_occurred
+		Entry.collision_count += 1
 
 		# Generate energy values
 		self.energy = Energy(0, 100000)
  
 		self.particles = [Particle() for n in range(5)]
- 
- 
+	
+	def get_run_id(self):
+		# IF last run resulted in no collision, or if there's been 3 consequtive collisions
+		if Entry.last_run_collision == "N" or Entry.collision_count > 2 :
+			# Reset run counter and return a new ID
+			Entry.collision_count = 0
+
+			return Run_ID()
+
+		# Otherwise return existing run id
+		return Entry.last_run_id
+
+
 	def __repr__(self):
 		data: str = (
 			f"{self.run_id}, "
